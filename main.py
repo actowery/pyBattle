@@ -2,6 +2,13 @@ from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
 
+print("\n\n")
+print("NAME                    HP                                       MP")
+print("                        __________________________               __________ ")
+print(bcolors.BOLD + "Valos:      " +
+      "xxx/xxx    |" + bcolors.OKGREEN + "██████████                " + bcolors.ENDC + "|     " + 
+      "xx/xx   |" + bcolors.OKBLUE + "████████  " + bcolors.ENDC + "|")
+
 
 #black spells
 fire = Spell("Fire", 10, 100, "black")
@@ -20,7 +27,6 @@ hi_potion = Item("Hi-Potion", "potion", "Heals 150 HP", 150)
 super_potion = Item("Super Potion", "potion", "Heals 250 HP", 250)
 elixir = Item("Elixir", "potion", "Heals Max HP/MP to one party member", 9999)
 mega_elixir = Item("Mega Elixir", "potion", "Heals Max HP/MP to entire party", 9999)
-
 
 grenade = Item("Grenade", "damage", "Deals 50 HP", 100)
 
