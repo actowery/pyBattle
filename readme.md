@@ -1,0 +1,1 @@
+This is a text based battle game written while self-learning python
