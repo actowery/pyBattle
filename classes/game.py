@@ -1,5 +1,6 @@
 import random
 from .magic import Spell
+from classes.inventory import Item
 
 class bcolors:
     HEADER = '\033[95m'
@@ -80,9 +81,8 @@ class Person:
     def choose_item(self):
         i = 1
         print(bcolors.BOLD + "Items:" + bcolors.ENDC)
-        i = 1
         for item in self.items:
-            print("    " + str(i) + ":", item.name, " - ", item.desc, " x5")
+            print("    " + str(i) + ":", item["item"].name, item["item"].desc, " x" + str(item["quantity"]))
             i += 1
             
             
