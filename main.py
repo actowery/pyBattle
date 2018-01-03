@@ -1,12 +1,21 @@
 from classes.game import Person, bcolors
+from classes.magic import Spell
+
+#black spells
+fire = Spell("Fire", 10, 100, "black")
+thunder = Spell("Thunder", 10, 100, "black")
+blizzard = Spell("Blizzard", 10, 100, "black")
+quake = Spell("Quake", 20, 200, "black")
+meteor = Spell("Meteor", 12, 150, "black")
+
+#white spells
+cure = Spell("Cure", 10, 100, "white")
+cura = Spell("Cura", 20, 200, "white")
 
 
-magic = [{"name": "Fire", "cost": 10, "dmg": 130},
-         {"name": "Thunder", "cost": 10, "dmg": 190},
-         {"name": "Blizzard", "cost": 10, "dmg": 160}]
-         
-player = Person(460, 65, 60, 34, magic)
-enemy = Person(1200, 65, 45, 25, magic)
+#pc and npc         
+player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura])
+enemy = Person(1200, 65, 45, 25, [])
 
 running = True
 
@@ -26,17 +35,20 @@ while running:
     elif index == 1:
         player.choose_magic()
         magic_choice = int(input("Choose spell: ")) - 1
-        magic_dmg = player.generate_spell_damage(magic_choice)
-        spell = player.get_spell_name(magic_choice)
-        cost = player.get_spell_cost(magic_choice)
-        
-        if cost > player.get_mp():
-            print(bcolors.FAIL + "\nNot enough MP\n" + bcolors.ENDC)
+        spell = player.mag[magic_choice]
+        magic_dmg = spell.generate_spell_damage()
+        if spell.cost > player.get_mp():
+            print(bcolors.FAIL + "\nNot enough MP!\n" + bcolors.ENDC)
             continue
         
-        player.reduce_mp(cost)
-        enemy.take_damage(magic_dmg)
-        print(bcolors.OKBLUE + "\n" + "You hit for", magic_dmg, "with", spell, "!" + bcolors.ENDC)
+        player.reduce_mp(spell.cost)        
+        if spell.element == "white":
+            player.heal(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + "You heal for", magic_dmg, "with", spell.name, "!" + bcolors.ENDC)
+            
+        elif spell.element == "black":
+            enemy.take_damage(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + "You hit for", magic_dmg, "with", spell.name, "!" + bcolors.ENDC)
     
     enemy_choice = 1
     
