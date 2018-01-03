@@ -8,18 +8,20 @@ class bcolors:
     WARNING = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-    def disable(self):
-        self.HEADER = ''
-        self.OKBLUE = ''
-        self.OKGREEN = ''
-        self.WARNING = ''
-        self.FAIL = ''
-        self.ENDC = ''
+    # def disable(self):
+    #     self.HEADER = ''
+    #     self.OKBLUE = ''
+    #     self.OKGREEN = ''
+    #     self.WARNING = ''
+    #     self.FAIL = ''
+    #     self.ENDC = ''
 
 class Person:
-    der __init__(self, hp, mp atk, df, mag):
-        sel.maxhp = hp
+    def __init__(self, hp, mp, atk, df, mag):
+        self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
         self.mp = mp
@@ -28,3 +30,55 @@ class Person:
         self.df = df
         self.mag = mag
         self.actions = ["Attack", "Magic"]
+        
+    def generate_damage(self):
+        return random.randrange(self.atkl, self.atkh)
+    
+    def generate_spell_damage(self, i):
+        mgl = self.mag[i]["dmg"] - 5
+        mgh = self.mag[i]["dmg"] + 5
+        return random.randrange(mgl, mgh)
+        
+    def take_damage(self, dmg):
+        self.hp -= dmg
+        if self.hp < 0:
+            self.hp = 0
+        return self.hp
+        
+    def get_hp(self):
+            return self.hp
+        
+    def get_max_hp(self):
+            return self.maxhp
+        
+    def get_mp(self):
+            return self.mp
+        
+    def get_max_mp(self):
+            return self.maxmp
+            
+    def reduce_mp(self, cost):
+        self.mp -= cost
+        
+    def get_spell_name(self, i):
+        return self.mag[i]["name"]
+        
+    def get_spell_cost(self, i):
+        return self.mag[i]["cost"]
+        
+        
+    def choose_action(self):
+        i = 1
+        print("Actions:")
+        for item in self.actions:
+            print(str(i) + ":", item)
+            i += 1
+            
+    def choose_magic(self):
+        i = 1
+        print("Magic:")
+        for spell in self.mag:
+            print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]),")")
+            i += 1
+            
+            
