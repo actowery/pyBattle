@@ -4,15 +4,15 @@ from classes.inventory import Item
 
 
 #black spells
-fire = Spell("Fire", 10, 100, "black")
-thunder = Spell("Thunder", 10, 100, "black")
-blizzard = Spell("Blizzard", 10, 100, "black")
-quake = Spell("Quake", 20, 200, "black")
-meteor = Spell("Meteor", 12, 150, "black")
+fire = Spell("Fire", 10, 600, "black")
+thunder = Spell("Thunder", 10, 600, "black")
+blizzard = Spell("Blizzard", 10, 600, "black")
+quake = Spell("Quake", 20, 1200, "black")
+meteor = Spell("Meteor", 30, 2050, "black")
 
 #white spells
-cure = Spell("Cure", 10, 100, "white")
-cura = Spell("Cura", 20, 200, "white")
+cure = Spell("Cure", 10, 600, "white")
+cura = Spell("Cura", 25, 1500, "white")
 
 #create items
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
@@ -27,10 +27,10 @@ grenade = Item("Grenade", "damage", "Deals 50 HP", 100)
 player_spells = [fire, thunder, blizzard, meteor, cure, cura]
 player_items = [{"item": potion, "quantity": 15}, {"item": grenade, "quantity": 10}]
 
-player1 = Person("Valos", 3260, 65, 60, 34, player_spells, player_items)
-player2 = Person("Adert", 4460, 65, 60, 34, player_spells, player_items)
-player3 = Person("Robot", 2460, 65, 60, 34, player_spells, player_items)
-enemy = Person("Dragon", 3200, 65, 45, 25, [], [])
+player1 = Person("Valos", 3260, 55, 1000, 34, player_spells, player_items)
+player2 = Person("Adert", 4460, 95, 300, 134, player_spells, player_items)
+player3 = Person("Robot", 2460, 25, 60, 75, player_spells, player_items)
+enemy = Person("Dragon", 32000, 755, 315, 25, [], [])
 
 players = [player1, player2, player3]
 
@@ -111,8 +111,8 @@ while running:
     enemy_choice = 1
     
     enemy_dmg = enemy.generate_damage()
-    player.take_damage(enemy_dmg)
-    print("Enemy hits for", enemy_dmg)
+    player1.take_damage(enemy_dmg)
+    print("Enemy hits " + player1.name + " for", enemy_dmg)
     
     print("====================")
     print("Enemy is at ", bcolors.FAIL + str(int(((enemy.get_hp() / enemy.get_max_hp())*100))) + "%" + bcolors.ENDC + "\n")

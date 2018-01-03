@@ -88,7 +88,26 @@ class Person:
             i += 1
             
     def get_stats(self):
+        mp_bar = ""
+        hp_bar = ""
+        mp_ticks = ((self.mp / self.maxmp)*100) / 10
+        bar_ticks = ((self.hp / self.maxhp)*100) / 4
+        #create bars with squares
+        while bar_ticks > 0:
+            hp_bar += "█"
+            bar_ticks -= 1
+        while mp_ticks > 0:
+            mp_bar += "█"
+            mp_ticks -= 1
+        #deal with white space in bars
+        while len(hp_bar) <25:
+            hp_bar += " "
+        while len(mp_bar) <10:
+            mp_bar += " "
+            
         print("                          __________________________               __________ ")
         print(bcolors.BOLD + "Valos:      " +
-        str(self.hp) + "/" + str(self.maxhp) + "    |" + bcolors.OKGREEN + "██████████                " + bcolors.ENDC + "|     " + 
-        str(self.mp) + "/" + str(self.maxmp) + "   |" + bcolors.OKBLUE + "████████  " + bcolors.ENDC + "|")
+        str(self.hp) + "/" + str(self.maxhp) + "    |" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|     " + 
+        str(self.mp) + "/" + str(self.maxmp) + "    |" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")
+        
+        
