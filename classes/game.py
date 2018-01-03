@@ -21,7 +21,8 @@ class bcolors:
     #     self.ENDC = ''
 
 class Person:
-    def __init__(self, hp, mp, atk, df, mag, items):
+    def __init__(self, name, hp, mp, atk, df, mag, items):
+        self.name = name
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -31,6 +32,7 @@ class Person:
         self.df = df
         self.mag = mag
         self.items = items
+        
         self.actions = ["Attack", "Magic", "Items"]
         
     def generate_damage(self):
@@ -66,7 +68,7 @@ class Person:
         
     def choose_action(self):
         i = 1
-        print(bcolors.BOLD + "Actions:" + bcolors.ENDC)
+        print(bcolors.BOLD + "Actions for " + self.name + ":" + bcolors.ENDC)
         for item in self.actions:
             print("    " + str(i) + ":", item)
             i += 1
@@ -85,4 +87,8 @@ class Person:
             print("    " + str(i) + ":", item["item"].name, item["item"].desc, " x" + str(item["quantity"]))
             i += 1
             
-            
+    def get_stats(self):
+        print("                          __________________________               __________ ")
+        print(bcolors.BOLD + "Valos:      " +
+        str(self.hp) + "/" + str(self.maxhp) + "    |" + bcolors.OKGREEN + "██████████                " + bcolors.ENDC + "|     " + 
+        str(self.mp) + "/" + str(self.maxmp) + "   |" + bcolors.OKBLUE + "████████  " + bcolors.ENDC + "|")
