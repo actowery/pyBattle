@@ -79,7 +79,15 @@ class Person:
         for spell in self.mag:
             print("    " + str(i) + ":", spell.name, "(cost:", str(spell.cost),")")
             i += 1
-            
+    def choose_target(self, enemies):
+        i = 1
+        print(bcolors.BOLD + "Enemies:" + bcolors.ENDC)
+        for enemy in enemies:
+            if enemy.get_hp() != 0:
+                print("    " + str(i) + ":", enemy.name)
+                i += 1
+        enemy_choice = int(input("Choose a target or '0' to return: ")) - 1
+        return enemy_choice
     def choose_item(self):
         i = 1
         print(bcolors.BOLD + "Items:" + bcolors.ENDC)
