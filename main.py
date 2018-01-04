@@ -1,6 +1,7 @@
 from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
+import random
 
 
 #black spells
@@ -17,9 +18,9 @@ cura = Spell("Cura", 25, 1500, "white")
 #create items
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
 hi_potion = Item("Hi-Potion", "potion", "Heals 150 HP", 150)
-super_potion = Item("Super Potion", "potion", "Heals 250 HP", 250)
+super_potion = Item("SuperPotion", "potion", "Heals 250 HP", 250)
 elixir = Item("Elixir", "potion", "Heals Max HP/MP to one party member", 9999)
-mega_elixir = Item("Mega Elixir", "potion", "Heals Max HP/MP to entire party", 9999)
+mega_elixir = Item("MegaElixir", "potion", "Heals Max HP/MP to entire party", 9999)
 
 grenade = Item("Grenade", "damage", "Deals 50 HP", 100)
 
@@ -40,13 +41,15 @@ print(bcolors.FAIL + bcolors.BOLD +"AN ENEMY ATTACKS" + bcolors.ENDC)
 
 while running:
     print("====================")
-    print("\n\n")
+    print("")
     print("NAME                    HP                                       MP")
     
     for player in players:
         player.get_stats()
 
     print("\n")
+    
+    enemy.get_enemy_stats()
     
     for player in players:
         player.choose_action()
@@ -101,23 +104,25 @@ while running:
                 print(bcolors.OKGREEN + "\nYou used " + item.name + " and healed ", item.prop, "HP!")
         
             elif item.category == "elixir":
-                player.hp = player.maxhp
-                player.mp = player.maxmp
+                if item.name == "MegaElixir":
+                    for i in players:
+                        i.hp = player.maxhp
+                        i.mp = player.maxmp
+                    else:
+                        player.hp = player.maxhp
+                        player.mp = player.maxmp
+
                 print(bcolors.OKGREEN + "\nYou used " + item.name + " and HP/MP healed fully!")
             elif item.category == "damage":
                 enemy.take_damage(item.prop)
                 print(bcolors.FAIL + "\nYou used " + item.name + " and dealt", item.prop, "damage!")
             
     enemy_choice = 1
-    
+    target = random.randrange(0, 3)
     enemy_dmg = enemy.generate_damage()
-    player1.take_damage(enemy_dmg)
-    print("Enemy hits " + player1.name + " for", enemy_dmg)
     
-    print("====================")
-    print("Enemy is at ", bcolors.FAIL + str(int(((enemy.get_hp() / enemy.get_max_hp())*100))) + "%" + bcolors.ENDC + "\n")
-    print("You are at ", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + "hp" + bcolors.ENDC)
-    print("You are at ", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + "mp" + bcolors.ENDC)
+    players[target].take_damage(enemy_dmg)
+    print("Enemy hits " + players[target].name + " for", enemy_dmg)
     
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "YOU WIN!!" + bcolors.ENDC)
